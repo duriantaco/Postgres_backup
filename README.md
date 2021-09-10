@@ -47,7 +47,7 @@ export PG_DB_HOST=localhost
 export PG_DB_PORT=5432
 export PG_DB_NAME=suppliers
 export PG_DB_USER=abc
-export PG_DB_PW=<put in your own pw
+export PG_DB_PW=<put in your own pw>
 ```
 2. Write your backup into file and push it into S3 with the following: 
 ```
