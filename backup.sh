@@ -8,6 +8,5 @@ export PGPASSWORD=*put your own pw*
 
 TIME=$(date "+%s")
 BACKUP_FILE="postgres_${PGDATABASE}_${TIME}.pgdump"
-echo "Backing up $PGDATABASE to $BACKUP_FILE"
 pg_dump --format=custom > $BACKUP_FILE
 echo "Backup completed"
