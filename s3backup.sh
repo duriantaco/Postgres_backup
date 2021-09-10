@@ -8,11 +8,10 @@ export PGPASSWORD=*put your own pw*
 
 TIME=$(date "+%s")
 BACKUP_FILE="postgres_${PGDATABASE}_${TIME}.pgdump"
-echo "Backing up $PGDATABASE to $BACKUP_FILE"
 pg_dump --format=custom > $BACKUP_FILE
 echo "Backup completed"
 
-S3_BUCKET=s3://ai-model-database-backup/postgresql
+S3_BUCKET=s3://path/to/bucket
 S3_TARGET=$S3_BUCKET/$BACKUP_FILE
 echo "Copying $BACKUP_FILE to $S3_TARGET"
 aws s3 cp $BACKUP_FILE $S3_TARGET
