@@ -39,3 +39,49 @@ psql -U username -d dbname < filename
 <img width="496" alt="Screenshot 2021-09-04 at 7 30 03 PM" src="https://user-images.githubusercontent.com/57052760/132093033-386be2df-5700-4d75-b850-1281d51fc1d8.png">
 
 ***Automating the backup with Cron***
+Credits to https://mattsegal.dev/postgres-backup-automate.html
+
+1. Create a shell script with your DB credentials such as DB host, DB port, DB name, DB username and DB pw
+```
+export PG_DB_HOST=localhost
+export PG_DB_PORT=5432
+export PG_DB_NAME=suppliers
+export PG_DB_USER=abc
+export PG_DB_PW=<put in your own pw
+```
+2. Write your backup into file and push it into S3 with the following: 
+```
+TIME=$(date "+%s")
+BACKUP_FILE="postgres_${PG_DB_NAME}_${TIME}.pgdump"
+pg_dump --format=custom > $BACKUP_FILE
+echo "Backup completed
+
+S3_BUCKET=s3://ai-model-database-backup/postgresql
+S3_TARGET=$S3_BUCKET/$BACKUP_FILE
+echo "Copying $BACKUP_FILE to $S3_TARGET"
+aws s3 cp $BACKUP_FILE $S3_TARGET
+
+echo "Backup completed for $PG_DB_NAME"
+```
+3. Next, create a cron job in the terminal with the following, ```crontab -e```. Inside cron, you'll want to specify the frequency of your backups, the path to your script as well as a log for easier debugging. The example below tells cron to run the job every minute. To do your own adjustments, you can use https://crontab.guru/#*_*_*_*_*
+
+```
+*    *    *   *   *    command_to_executed/Path to the files/ 
+|    |    |   |   |
+|    |    |   |   +----- day of week (0 - 6) (Sunday=0)
+|    |    |   +------- month (1 - 12)
+|    |    +--------- day of month (1 - 31)
+|    +----------- hour (0 - 23)
++------------- min (0 - 59)
+```
+
+An example will be as follows:
+
+```
+#tell cron to run the backup every minute. Also include a backup.log to debug in the following path ```~/```
+* * * * * ~/s3backup.sh >> ~/backup.log 2>&1
+```
+Once you have finished updating, use the following command to save and exit ```:wq```
+To check your cron, use the following command ```crontab -l```
+
+Keep an eye out for the limited default PATH when running cron. 
