@@ -37,3 +37,5 @@ psql -U username -d dbname < filename
 11. When the restoring has completed, log in to postgres again with ```sudo -u postgres psql```. Connect to the database suppliers with ```\c suppliers```. To check the tables, ```\dt```. Viola! your restoration is complete. To double check, you can do a simple count ```SELECT COUNT(*) FROM table-in-database``` Eg, ```SELECT COUNT(*) FROM part_drawings``` and match it with your original database. 
 
 <img width="496" alt="Screenshot 2021-09-04 at 7 30 03 PM" src="https://user-images.githubusercontent.com/57052760/132093033-386be2df-5700-4d75-b850-1281d51fc1d8.png">
+
+***Automating the backup with Cron***
