@@ -3,8 +3,8 @@
 export PGHOST=localhost
 export PGPORT=5432
 export PGDATABASE=suppliers
-export PGUSER=postgres
-export PGPASSWORD=SecurePas$
+export PGUSER=abc
+export PGPASSWORD=*put your own pw*
 
 TIME=$(date "+%s")
 BACKUP_FILE="postgres_${PGDATABASE}_${TIME}.pgdump"
