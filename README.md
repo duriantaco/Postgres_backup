@@ -21,7 +21,7 @@ psql -U username -d dbname < filename
 
 2. To push the dump from your local computer into your S3, you will first need to install AWS CLI in your computer. -> https://github.com/aws/aws-cli/tree/v2
 
-3. Configure your aws cli with the command ```aws configure```. Type in your access key, secret key and the default region name. To test if your aws is working, type in the following command ```aws s3 ls```. You should see the list of your buckets. Once it's working, push your dump from your local directory into the s3 with the following command ```aws s3 cp /path/to/dump s3://bucket-you-want-to-store. Eg ```aws s3 cp /Users/test/dump-suppliers-1234567 s3://Testbucket```
+3. Configure your aws cli with the command ```aws configure```. Type in your access key, secret key and the default region name. To test if your aws is working, type in the following command ```aws s3 ls```. You should see the list of your buckets. Once it's working, push your dump from your local directory into the s3 with the following command ```aws s3 cp /path/to/dump s3://bucket-you-want-to-store. Eg aws s3 cp /Users/test/dump-suppliers-1234567 s3://Testbucket```
 
 4. Configure your ec2. Select whichever instance you want, and under 'configure security group', input the following. 
 
